@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import {TasksPropsType, Todolist} from './Todolist';
+import {OnOff} from './OnOff';
 
 
 export type FilteredType = 'all' | 'active' | 'completed'
@@ -35,7 +36,9 @@ if(filter === 'active'){
     }
     return (
         <div className="App">
-            <Todolist title="What to learn" tasks={filteredTasks} removeTask={removeTask} changeFilter={changeFilter}/>
+<OnOff on={true} />
+<OnOff on={false} />
+<OnOff on={true} />
         </div>
     );
 }
