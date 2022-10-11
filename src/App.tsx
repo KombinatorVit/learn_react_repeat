@@ -1,47 +1,23 @@
-import React, {useState} from 'react';
-import './App.css';
-import {TasksPropsType, Todolist} from './Todolist';
-import {OnOff} from './OnOff';
+import Button from "./Button";
+import { IoArrowRedoCircleSharp, IoCheckmarkSharp } from "react-icons/io5";
 
+import "./styles.css";
+import React from 'react';
 
-export type FilteredType = 'all' | 'active' | 'completed'
-
-
-function App() {
-
-   const[tasks, setTasks]=useState<Array<TasksPropsType>>([
-        { id: 1, title: "HTML&CSS", isDone: true },
-        { id: 2, title: "JS", isDone: true },
-        { id: 3, title: "ReactJS", isDone: false },
-        { id: 4, title: "Redux", isDone: false },
-        { id: 5, title: "GraphQL", isDone: false }
-    ])
-
-    const[filter, setFilter] = useState<FilteredType>('all')
-
-    function removeTask(id:number){
- setTasks( tasks.filter(t => t.id !== id))
-    }
-
-    function changeFilter(value:FilteredType) {
-        setFilter(value)
-    }
-
-    let filteredTasks = tasks
-if(filter === 'active'){
-    filteredTasks = tasks.filter(t => !t.isDone)
-}
-    if(filter === 'completed'){
-        filteredTasks = tasks.filter(t => t.isDone)
-    }
+export default function App() {
     return (
         <div className="App">
-<OnOff on={true} />
-<OnOff on={false} />
-<OnOff on={true} />
+            <Button primary>Click me</Button>
+            <Button secondary>Click me</Button>
+            <Button primary arrow>
+                Click me
+            </Button>
+            <Button secondary icon={<IoArrowRedoCircleSharp />}>
+                Click me
+            </Button>
+            <Button secondary icon={<IoCheckmarkSharp />}>
+                Click me
+            </Button>
         </div>
     );
 }
-
-export default App;
-
