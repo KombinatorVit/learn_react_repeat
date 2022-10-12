@@ -1,23 +1,60 @@
-import Button from "./Button";
-import { IoArrowRedoCircleSharp, IoCheckmarkSharp } from "react-icons/io5";
+import React, {useState} from 'react';
+import './App.css';
+import {Todolist} from './Todolist';
+import {v1} from 'uuid';
 
-import "./styles.css";
-import React from 'react';
+export type FilterValuesType = "all" | "active" | "completed";
 
-export default function App() {
+function App() {
+
+    let [tasks, setTasks] = useState([
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false },
+        { id: v1(), title: "Rest API", isDone: false },
+        { id: v1(), title: "GraphQL", isDone: false },
+    ]);
+
+    function removeTask(id: string) {
+        let filteredTasks = tasks.filter(t => t.id != id);
+        setTasks(filteredTasks);
+    }
+
+    function addTasks(title:string){
+        const newTask = {
+            id:v1(),
+            title: title,
+            isDone: false
+        }
+        const newTasks = [newTask, ...tasks]
+        setTasks(newTasks)
+
+    }
+
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = tasks;
+
+    if (filter === "active") {
+        tasksForTodolist = tasks.filter(t => t.isDone === false);
+    }
+    if (filter === "completed") {
+        tasksForTodolist = tasks.filter(t => t.isDone === true);
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
+
     return (
         <div className="App">
-            <Button primary>Click me</Button>
-            <Button secondary>Click me</Button>
-            <Button primary arrow>
-                Click me
-            </Button>
-            <Button secondary icon={<IoArrowRedoCircleSharp />}>
-                Click me
-            </Button>
-            <Button secondary icon={<IoCheckmarkSharp />}>
-                Click me
-            </Button>
+            <Todolist title="What to learn"
+                      tasks={tasksForTodolist}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTasks={addTasks}/>
         </div>
     );
 }
+
+export default App;
