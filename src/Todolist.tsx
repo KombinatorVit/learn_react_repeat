@@ -83,7 +83,10 @@ export function Todolist(props: PropsType) {
             </button>
             <button onClick={changeCompletedFilter}>
                 Completed
+
             </button>
         </div>
     </div>;
 }
+
+
