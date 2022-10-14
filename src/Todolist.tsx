@@ -20,8 +20,10 @@ export function Todolist(props: PropsType) {
     const [title, setTitle] = useState('');
 
     function addTask() {
-        props.addTasks(title);
-        setTitle('');
+if(title.trim() !== ''){
+    props.addTasks(title.trim());
+    setTitle('')
+}
     }
 
     function onChangeHandler(e: ChangeEvent<HTMLInputElement>) {
