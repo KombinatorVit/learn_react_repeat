@@ -93,6 +93,14 @@ function App() {
         setTasks({...tasks, [newTodolistId]: []});
     }
 
+    function changeTodolistTitle(todolistId: string, newTitle: string) {
+        setTodolists(todolists.map(td => td.id ===todolistId ? {...td, title: newTitle} : td))
+    }
+
+    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(el => el.id === id ? {...el, title: newTitle} : el )})
+    }
+
     return (
         <div className="App">
             <AddItemForm addItem={addTodolist}/>
@@ -119,6 +127,8 @@ function App() {
                         changeTaskStatus={changeStatus}
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}
                     />;
                 })
             }
